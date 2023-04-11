@@ -1,0 +1,66 @@
+<!-- NOTE: load static informs the server that static assets are needed here -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- <script defer src="{% static 'js/script.js' %}"></script> -->
+    {% block title%}
+    <title>CatCollector</title>
+    {% endblock %}
+</head>
+<body>
+    <header class="navbar-fixed">
+       <nav>
+        <div class="nav-wrapper deep-purple lighten-3">
+            <a href="{% url 'home' %}" class="brand-logo left">CatCollector</a>
+            <ul class="right">
+                <li>
+                    <a href="{% url 'about' %}">About</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'cats_index' %}">View All Cats</a>
+                </li>
+                <li>
+                    <a href="{% url 'cat_create' %}">Add a Cat</a>
+                </li>
+                <li>
+                    <a href="{% url 'toy_list' %}">View Toys</a>
+                </li>
+                <li>
+                    <a href="{% url 'toy_create' %}">Add a Toy</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">Log Out</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'login' %}">Log In</a>
+                </li>
+                <li>
+                    <a href="{% url 'signup' %}">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+       </nav> 
+    </header>
+    <main class="container">
+        {% block content %} 
+        {% endblock %}
+    </main>
+    <footer class="page-footer deep-purple lighten-3">
+        <p>All Rights Reserved, Copyright &copy; CatCollector 2023 &nbsp;</p>
+    </footer>
+</body>
+</html>
